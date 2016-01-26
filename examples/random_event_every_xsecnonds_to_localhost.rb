@@ -6,7 +6,7 @@
 require '../lib/statsd'
 
 # Create a stats instance.
-statsd = Statsd.new('localhost', 8125)
+statsd = DogStatsd.new('localhost', 8125)
 
 # Data to run random tests
 titles = Array.new

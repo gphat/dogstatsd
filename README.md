@@ -1,26 +1,28 @@
 
-dogstatsd-ruby
+dogstatsd
 ==============
 
 A client for DogStatsD, an extension of the StatsD metric server for Datadog.
 
-[![Build Status](https://secure.travis-ci.org/DataDog/dogstatsd-ruby.png)](http://travis-ci.org/DataDog/dogstatsd-ruby)
+This was forked from [Datadog's dogstatsd-ruby](https://github.com/DataDog/dogstatsd-ruby)
+but uses a different class name (DogStatsD) to avoid conflicts!
+
 
 Quick Start Guide
 -----------------
 
 First install the library:
 
-    gem install dogstatsd-ruby
+    gem install dogstatsd
 
 Then start instrumenting your code:
 
 ``` ruby
 # Load the dogstats module.
-require 'statsd'
+require 'dogstatsd'
 
 # Create a stats instance.
-statsd = Statsd.new('localhost', 8125)
+statsd = DogStatsd.new('localhost', 8125)
 
 # Increment a counter.
 statsd.increment('page.views')
@@ -81,6 +83,8 @@ To suggest a feature, report a bug, or general discussion, head over
 
 Credits
 -------
+
+dogstatsd is forked from Datadog's [dogstasd-ruby](https://github.com/DataDog/dogstatsd-ruby).
 
 dogstatsd-ruby is forked from Rien Henrichs [original Statsd
 client](https://github.com/reinh/statsd).

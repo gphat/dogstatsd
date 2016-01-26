@@ -3,8 +3,8 @@ require 'socket'
 # = Statsd: A DogStatsd client (https://www.datadoghq.com)
 #
 # @example Set up a global Statsd client for a server on localhost:8125
-#   require 'statsd'
-#   $statsd = Statsd.new 'localhost', 8125
+#   require 'dogstatsd'
+#   $statsd = DogStatsd.new 'localhost', 8125
 # @example Send some stats
 #   $statsd.increment 'page.views'
 #   $statsd.timing 'page.load', 320
@@ -12,11 +12,11 @@ require 'socket'
 # @example Use {#time} to time the execution of a block
 #   $statsd.time('account.activate') { @account.activate! }
 # @example Create a namespaced statsd client and increment 'account.activate'
-#   statsd = Statsd.new 'localhost', 8125, :namespace => 'account'
+#   statsd = DogStatsd.new 'localhost', 8125, :namespace => 'account'
 #   statsd.increment 'activate'
 # @example Create a statsd client with global tags
-#   statsd = Statsd.new 'localhost', 8125, :tags => 'tag1:true'
-class Statsd
+#   statsd = DogStatsd.new 'localhost', 8125, :tags => 'tag1:true'
+class DogStatsd
 
   DEFAULT_HOST = '127.0.0.1'
   DEFAULT_PORT = 8125
