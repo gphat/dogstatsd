@@ -227,7 +227,7 @@ class DogStatsd
     # @option opts [Array<String>, nil] :tags (nil) An array of tags
     # @option opts [String, nil] :message (nil) A message to associate with this service check status
   # @example Report a critical service check status
-  #   $statsd.service_check('my.service.check', Statsd::CRITICAL, :tags=>['urgent'])
+  #   $statsd.service_check('my.service.check', DogStatsd::CRITICAL, :tags=>['urgent'])
   def service_check(name, status, opts={})
     service_check_string = format_service_check(name, status, opts)
     send_to_socket service_check_string
