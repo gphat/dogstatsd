@@ -109,6 +109,9 @@ class DogStatsd
   # @param [String] stat stat name
   # @param [Hash] opts the options to create the metric with
   # @option opts [Numeric] :sample_rate sample rate, 1 for always
+  # @option opts [Boolean] :bypass_sampling if true, do not actually
+  #   sample the data, but still report the sample rate passed in. Use
+  #   this if you're doing your own sampling
   # @option opts [Array<String>] :tags An array of tags
   # @see #count
   def increment(stat, opts={})
@@ -120,6 +123,9 @@ class DogStatsd
   # @param [String] stat stat name
   # @param [Hash] opts the options to create the metric with
   # @option opts [Numeric] :sample_rate sample rate, 1 for always
+  # @option opts [Boolean] :bypass_sampling if true, do not actually
+  #   sample the data, but still report the sample rate passed in. Use
+  #   this if you're doing your own sampling
   # @option opts [Array<String>] :tags An array of tags
   # @see #count
   def decrement(stat, opts={})
@@ -132,6 +138,9 @@ class DogStatsd
   # @param [Integer] count count
   # @param [Hash] opts the options to create the metric with
   # @option opts [Numeric] :sample_rate sample rate, 1 for always
+  # @option opts [Boolean] :bypass_sampling if true, do not actually
+  #   sample the data, but still report the sample rate passed in. Use
+  #   this if you're doing your own sampling
   # @option opts [Array<String>] :tags An array of tags
   def count(stat, count, opts={})
     send_stats stat, count, :c, opts
@@ -147,6 +156,9 @@ class DogStatsd
   # @param [Numeric] value gauge value.
   # @param [Hash] opts the options to create the metric with
   # @option opts [Numeric] :sample_rate sample rate, 1 for always
+  # @option opts [Boolean] :bypass_sampling if true, do not actually
+  #   sample the data, but still report the sample rate passed in. Use
+  #   this if you're doing your own sampling
   # @option opts [Array<String>] :tags An array of tags
   # @example Report the current user count:
   #   $statsd.gauge('user.count', User.count)
@@ -160,6 +172,9 @@ class DogStatsd
   # @param [Numeric] value histogram value.
   # @param [Hash] opts the options to create the metric with
   # @option opts [Numeric] :sample_rate sample rate, 1 for always
+  # @option opts [Boolean] :bypass_sampling if true, do not actually
+  #   sample the data, but still report the sample rate passed in. Use
+  #   this if you're doing your own sampling
   # @option opts [Array<String>] :tags An array of tags
   # @example Report the current user count:
   #   $statsd.histogram('user.count', User.count)
@@ -176,6 +191,9 @@ class DogStatsd
   # @param [Integer] ms timing in milliseconds
   # @param [Hash] opts the options to create the metric with
   # @option opts [Numeric] :sample_rate sample rate, 1 for always
+  # @option opts [Boolean] :bypass_sampling if true, do not actually
+  #   sample the data, but still report the sample rate passed in. Use
+  #   this if you're doing your own sampling
   # @option opts [Array<String>] :tags An array of tags
   def timing(stat, ms, opts={})
     send_stats stat, ms, :ms, opts
@@ -189,6 +207,9 @@ class DogStatsd
   # @param [String] stat stat name
   # @param [Hash] opts the options to create the metric with
   # @option opts [Numeric] :sample_rate sample rate, 1 for always
+  # @option opts [Boolean] :bypass_sampling if true, do not actually
+  #   sample the data, but still report the sample rate passed in. Use
+  #   this if you're doing your own sampling
   # @option opts [Array<String>] :tags An array of tags
   # @yield The operation to be timed
   # @see #timing
@@ -209,6 +230,9 @@ class DogStatsd
   # @param [Numeric] value set value.
   # @param [Hash] opts the options to create the metric with
   # @option opts [Numeric] :sample_rate sample rate, 1 for always
+  # @option opts [Boolean] :bypass_sampling if true, do not actually
+  #   sample the data, but still report the sample rate passed in. Use
+  #   this if you're doing your own sampling
   # @option opts [Array<String>] :tags An array of tags
   # @example Record a unique visitory by id:
   #   $statsd.set('visitors.uniques', User.id)
@@ -337,7 +361,7 @@ class DogStatsd
 
   def send_stats(stat, delta, type, opts={})
     sample_rate = opts[:sample_rate] || 1
-    if sample_rate == 1 or rand < sample_rate
+    if sample_rate == 1 or opts[:bypass_sampling] or rand < sample_rate
       # Replace Ruby module scoping with '.' and reserved chars (: | @) with underscores.
       stat = stat.to_s.gsub('::', '.').tr(':|@', '_')
       rate = "|@#{sample_rate}" unless sample_rate == 1

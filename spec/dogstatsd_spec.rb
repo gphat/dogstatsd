@@ -242,6 +242,14 @@ describe DogStatsd do
         @statsd.socket.recv.must_equal ['foobar:500|ms|@0.5']
       end
     end
+
+    describe "when sampling is bypassed" do
+      before { class << @statsd; def rand; raise end; end }
+      it "should send with a sample rate" do
+        @statsd.timing('foobar', 500, :sample_rate=>0.5, :bypass_sampling=>true)
+        @statsd.socket.recv.must_equal ['foobar:500|ms|@0.5']
+      end
+    end
   end
 
   describe "with namespace" do
