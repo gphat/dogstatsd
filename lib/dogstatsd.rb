@@ -69,7 +69,7 @@ class DogStatsd
 
   # Return the current version of the library.
   def self.VERSION
-    "2.0.0"
+    "2.0.1"
   end
 
   # @param [String] host your statsd host

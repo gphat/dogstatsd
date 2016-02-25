@@ -1,5 +1,13 @@
 # CHANGELOG
 
+2.0.1/ 2016.02.25
+=================
+
+### Changes
+
+* [FEATURE] Support reporting sampling that's performed outside the
+  library with `bypass_sampling`, [stripe/dogstatsd#1][] [@ebroder][]
+
 2.0.0/ 2016.01.26
 =================
 
