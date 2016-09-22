@@ -1,5 +1,13 @@
 # CHANGELOG
 
+2.0.2/ 2016.09.21
+=================
+
+### Changes
+
+* [BUGFIX] Don't produce malformed packets when passing an empty hash to `service_check`,
+  [stripe/dogstatsd#2][] [@tummychow][]
+
 2.0.1/ 2016.02.25
 =================
 

@@ -69,7 +69,7 @@ class DogStatsd
 
   # Return the current version of the library.
   def self.VERSION
-    "2.0.1"
+    "2.0.2"
   end
 
   # @param [String] host your statsd host
@@ -263,8 +263,10 @@ class DogStatsd
       if opts[name_key[0].to_sym]
         if name_key[0] == 'tags'
           tags = opts[:tags].map {|tag| remove_pipes(tag) }
-          tags = "#{tags.join(",")}" unless tags.empty?
-          sc_string << "|##{tags}"
+          unless tags.empty?
+            tags = "#{tags.join(",")}"
+            sc_string << "|##{tags}"
+          end
         elsif name_key[0] == 'message'
           message = remove_pipes(opts[:message])
           escaped_message = escape_service_check_message(message)
