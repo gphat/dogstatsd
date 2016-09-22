@@ -547,6 +547,11 @@ describe DogStatsd do
         @statsd.socket.recv.must_equal ["_sc|#{name}|#{status}|##{tags_joined}"]
       end
 
+      it "With no tags" do
+        @statsd.service_check(name, status, :tags => {})
+        @statsd.socket.recv.must_equal ["_sc|#{name}|#{status}"]
+      end
+
       it "With hostname, message, and tags" do
         @statsd.service_check(name, status, :message => 'testing | m: \n', :hostname => 'hostname_test',
                               :tags => tags)
