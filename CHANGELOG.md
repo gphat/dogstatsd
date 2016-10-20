@@ -1,5 +1,12 @@
 # CHANGELOG
 
+2.0.3/ 2016.10.20
+=================
+
+### Changes
+
+* [BUGFIX] Report metric from `time` even if block returns, [stripe/dogstatsd#3][] [@tummychow][]
+
 2.0.2/ 2016.09.21
 =================
 
@@ -94,6 +101,11 @@ Future versions are likely to introduce backward incompatibilities with < Ruby 1
 [#16]: https://github.com/DataDog/dogstatsd-ruby/issues/16
 [#17]: https://github.com/DataDog/dogstatsd-ruby/issues/17
 [#22]: https://github.com/DataDog/dogstatsd-ruby/issues/22
+[stripe/dogstatsd#1]: https://github.com/stripe/dogstatsd/pull/1
+[stripe/dogstatsd#2]: https://github.com/stripe/dogstatsd/pull/2
+[stripe/dogstatsd#3]: https://github.com/stripe/dogstatsd/pull/3
 [@gleseur]: https://github.com/gleseur
 [@olefriis]: https://github.com/olefriis
 [@sensadrome]: https://github.com/sensadrome
+[@ebroder]: https://github.com/ebroder
+[@tummychow]: https://github.com/tummychow

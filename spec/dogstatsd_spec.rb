@@ -202,6 +202,18 @@ describe DogStatsd do
       end.must_raise StandardError
     end
 
+    it "should return even if the block returns" do
+      def helper_time_return
+        @statsd.time('foobar') do
+          Timecop.freeze(Time.now + 1)
+          return 'test'
+        end
+      end
+      result = helper_time_return
+      result.must_equal 'test'
+      @statsd.socket.recv.must_equal ['foobar:1000|ms']
+    end
+
     describe "with a sample rate" do
       before { class << @statsd; def rand; 0; end; end } # ensure delivery
 
